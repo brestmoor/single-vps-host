@@ -1,26 +1,10 @@
 version: "3.8"
 
 services:
-  knowlesglass:
-    image: 493255580566.dkr.ecr.us-east-1.amazonaws.com/knowles-glass:latest
+  projektpilkarz:
+    image: brestmoor/private:projektpilkarz-a5c43e0
     pull_policy: always
     restart: always
-    networks:
-      - caddy_network
-
-  webdevcody:
-    image: 493255580566.dkr.ecr.us-east-1.amazonaws.com/webdevcody:latest
-    pull_policy: always
-    restart: always
-    networks:
-      - caddy_network
-
-  icongeneratorai:
-    image: 493255580566.dkr.ecr.us-east-1.amazonaws.com/icongeneratorai:latest
-    pull_policy: always
-    restart: always
-    env_file:
-      - .env-icongeneratorai
     networks:
       - caddy_network
 
@@ -39,9 +23,7 @@ services:
     networks:
       - caddy_network
     depends_on:
-      - knowlesglass
-      - webdevcody
-      - icongeneratorai
+      - projektpilkarz
 
   dozzle:
     image: amir20/dozzle:latest
