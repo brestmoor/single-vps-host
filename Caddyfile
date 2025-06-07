@@ -1,3 +1,3 @@
-138.68.78.255 {
+http://138.68.78.255 {
   reverse_proxy projektpilkarz:3000
 }
