@@ -7,6 +7,24 @@ services:
     restart: always
     networks:
       - caddy_network
+    environment:
+      - POSTGRES_URL=${POSTGRES_URL}
+      - BETTER_AUTH_SECRET=${BETTER_AUTH_SECRET}
+      - BETTER_AUTH_URL=${BETTER_AUTH_URL}
+      - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
+      - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
+      - RESEND_API_KEY=${RESEND_API_KEY}
+      - PAYU_POS_ID=${PAYU_POS_ID}
+      - PAYU_CONTINUE_URL=${PAYU_CONTINUE_URL}
+      - PAYU_NOTIFY_URL=${PAYU_NOTIFY_URL}
+      - PAYU_CLIENT_ID=${PAYU_CLIENT_ID}
+      - PAYU_CLIENT_SECRET=${PAYU_CLIENT_SECRET}
+      - PAYU_SECOND_KEY=${PAYU_SECOND_KEY}
+      - INFAKT_API_KEY=${INFAKT_API_KEY}
+      - INFAKT_URL=${INFAKT_URL}
+      - INFAKT_DOWNLOAD_URL=${INFAKT_DOWNLOAD_URL}
+      - INFAKT_WEBHOOK_SECRET=${INFAKT_WEBHOOK_SECRET}
+      - CONTACT_US_EMAIL=${CONTACT_US_EMAIL}
 
   caddy_reverse_proxy:
     image: caddy:latest
@@ -35,9 +53,22 @@ services:
     environment:
       DOZZLE_AUTH_PROVIDER: simple
 
+  postgres:
+    image: postgres:17.5-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - caddy_network
+
 networks:
   caddy_network:
 
 volumes:
   caddy_data:
   caddy_config:
+  postgres_data:
