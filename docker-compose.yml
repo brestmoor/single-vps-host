@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   projektpilkarz:
-    image: brestmoor/private:projektpilkarz-a5c43e0
+    image: brestmoor/private:projektpilkarz-latest
     pull_policy: always
     restart: always
     networks:
@@ -62,6 +62,16 @@ services:
       POSTGRES_DB: ${POSTGRES_DB}
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    networks:
+      - caddy_network
+
+  migrate:
+    image: brestmoor/private:projektpilkarz-latest
+    entrypoint: npx drizzle-kit push
+    environment:
+      - POSTGRES_URL=${POSTGRES_URL}
+    depends_on:
+      - postgres
     networks:
       - caddy_network
 
