@@ -7,24 +7,8 @@ services:
     restart: always
     networks:
       - caddy_network
-    environment:
-      - POSTGRES_URL=${POSTGRES_URL}
-      - BETTER_AUTH_SECRET=${BETTER_AUTH_SECRET}
-      - BETTER_AUTH_URL=${BETTER_AUTH_URL}
-      - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
-      - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
-      - RESEND_API_KEY=${RESEND_API_KEY}
-      - PAYU_POS_ID=${PAYU_POS_ID}
-      - PAYU_CONTINUE_URL=${PAYU_CONTINUE_URL}
-      - PAYU_NOTIFY_URL=${PAYU_NOTIFY_URL}
-      - PAYU_CLIENT_ID=${PAYU_CLIENT_ID}
-      - PAYU_CLIENT_SECRET=${PAYU_CLIENT_SECRET}
-      - PAYU_SECOND_KEY=${PAYU_SECOND_KEY}
-      - INFAKT_API_KEY=${INFAKT_API_KEY}
-      - INFAKT_URL=${INFAKT_URL}
-      - INFAKT_DOWNLOAD_URL=${INFAKT_DOWNLOAD_URL}
-      - INFAKT_WEBHOOK_SECRET=${INFAKT_WEBHOOK_SECRET}
-      - CONTACT_US_EMAIL=${CONTACT_US_EMAIL}
+    env_file:
+      - .env
 
   caddy_reverse_proxy:
     image: caddy:latest
@@ -35,6 +19,7 @@ services:
       - ./private:/etc/ssl/private/custom
       - caddy_data:/data
       - caddy_config:/config
+      - /videos:/srv/videos
     ports:
       - "80:80"
       - "443:443"

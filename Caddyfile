@@ -1,3 +1,8 @@
 http://138.68.78.255 {
+  handle_path /videos/* {
+    root * /videos
+    file_server
+  }
+
   reverse_proxy projektpilkarz:3000
 }
