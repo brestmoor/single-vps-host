@@ -52,7 +52,7 @@ services:
 
   migrate:
     image: brestmoor/private:projektpilkarz-migrate-latest
-    entrypoint: npx drizzle-kit push
+    entrypoint: npx drizzle-kit push && npx drizzle-kit migrate
     environment:
       - POSTGRES_URL=${POSTGRES_URL}
     depends_on:
