@@ -19,7 +19,7 @@ services:
       - ./private:/etc/ssl/private/custom
       - caddy_data:/data
       - caddy_config:/config
-      - /videos:/srv/videos
+      - /root/single-vps-host/videos:/srv/videos
     ports:
       - "80:80"
       - "443:443"
