@@ -1,8 +1,8 @@
-http://138.68.78.255 {
-  handle_path /videos/* {
-    root * /srv/videos
-    file_server
-  }
+projektpilkarz.com {
+    @noauth path /api*   # Match all /api and subpaths
 
-  reverse_proxy projektpilkarz:3000
+    # Basic Auth for everything except /api*
+    basicauth not @noauth pilkarz hashedpassword
+
+    reverse_proxy projektpilkarz:3000
 }
