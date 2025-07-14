@@ -1,4 +1,4 @@
-projektpilkarz.com {
+projektpiłkarz.com {
     @noauth path /api*   # Match all /api and subpaths
 
     # Basic Auth for everything except /api*
