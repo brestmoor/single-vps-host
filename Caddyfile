@@ -1,8 +1,19 @@
 projektpiłkarz.pl, www.projektpiłkarz.pl {
-    @noauth path /api*   # Match all /api and subpaths
+    @noauth path /api*
 
-    # Basic Auth for everything except /api*
-    basicauth not @noauth pilkarz hashedpassword
+    handle_path /videos/* {
+      root * /srv/videos
+      file_server
+    }
 
-    reverse_proxy projektpilkarz:3000
+    handle @noauth {
+        reverse_proxy projektpilkarz:3000
+    }
+
+    handle {
+        basic_auth {
+            pilkarz $2a$14$wIFwRUaDk2q.DodwhxHrKO6VTe/8NGFtBqSGfMtS3mHTHcIHfsOQO
+        }
+        reverse_proxy projektpilkarz:3000
+    }
 }
