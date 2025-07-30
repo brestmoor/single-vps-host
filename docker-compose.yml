@@ -9,6 +9,13 @@ services:
       - caddy_network
     env_file:
       - .env
+    volumes:
+      - ./app-logs:/app/logs
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "5"
 
   caddy_reverse_proxy:
     image: caddy:latest
@@ -27,6 +34,11 @@ services:
       - caddy_network
     depends_on:
       - projektpilkarz
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "5"
 
   dozzle:
     image: amir20/dozzle:latest
@@ -53,6 +65,7 @@ services:
   migrate:
     image: brestmoor/private:projektpilkarz-migrate-latest
     entrypoint: npx drizzle-kit push && npx drizzle-kit migrate
+    pull_policy: always
     environment:
       - POSTGRES_URL=${POSTGRES_URL}
     depends_on:
