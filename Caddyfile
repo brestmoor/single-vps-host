@@ -1,4 +1,4 @@
-projektpiłkarz.pl, www.projektpiłkarz.pl {
+projektpilkarz.pl, www.projektpilkarz.pl {
     @noauth path /api*
 
     handle_path /videos/* {
